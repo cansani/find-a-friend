@@ -1,0 +1,26 @@
+{
+  "name": "find-a-friend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx --watch src/server.ts",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "prisma": "^6.15.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4",
+    "vitest-tsconfig-paths": "^3.4.1"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.15.0",
+    "zod": "^4.1.5"
+  }
+}
