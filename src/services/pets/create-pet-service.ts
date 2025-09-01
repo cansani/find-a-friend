@@ -1,11 +1,13 @@
 import { PetsRepository } from "@/repositories/pets-repository";
-import { Pet } from "generated/prisma";
+import { Pet, Prisma } from "generated/prisma";
+
+type Characteristics = Prisma.JsonObject
 
 interface PetsCreateRequest {
     name: string
     city: string
     available: boolean
-    characteristics: object
+    characteristics: Characteristics
     orgId: string
 }
 

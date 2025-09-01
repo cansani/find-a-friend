@@ -3,8 +3,23 @@ import { PetsRepository } from "../pets-repository";
 import { randomUUID } from "node:crypto";
 import { JsonValue } from "generated/prisma/runtime/library";
 
+type Characteristics = Prisma.JsonObject
+
 export class InMemoryPetsRepository implements PetsRepository {
     public items: Pet[] = []
+
+    async findManyByCharacteristics(characteristics: Characteristics): Promise<Pet[]> {
+        const pets = this.items.filter((pet) => {
+            const petsFound = Object.entries(characteristics).every(([key, value]) => {
+                const petCharacteristics = pet.characteristics as Prisma.JsonObject
+                return petCharacteristics?.[key] === value
+            })
+
+            return petsFound
+        })
+
+        return pets
+    }
 
     async findUnique(id: string): Promise<Pet | null> {
         const pet = this.items.find(pet => pet.id === id)
