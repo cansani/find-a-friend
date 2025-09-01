@@ -5,6 +5,16 @@ import { randomUUID } from "node:crypto";
 export class InMemoryOrgsRepository implements OrgsRepository {
     public items: Org[] = []
 
+    async findByEmail(email: string): Promise<Org | null> {
+        const org = this.items.find(org => org.email === email)
+
+        if (!org) {
+            return null
+        }
+
+        return org
+    }
+
     async create(data: Prisma.OrgUncheckedCreateInput): Promise<Org> {
         const org = {
             id: data.id ?? randomUUID(),
