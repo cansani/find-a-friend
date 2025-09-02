@@ -16,7 +16,7 @@ export async function authOrgsController(request: FastifyRequest, reply: Fastify
         const orgsRepository = new PrismaOrgsRepository()
         const authService = new AuthService(orgsRepository)
 
-        const { org } = await authService.handle({
+        const { account } = await authService.handle({
             email,
             password
         })
@@ -26,7 +26,7 @@ export async function authOrgsController(request: FastifyRequest, reply: Fastify
                 type: "org"
             }, 
             {
-                sub: org.id
+                sub: account.id
             }
         )
 
@@ -35,7 +35,7 @@ export async function authOrgsController(request: FastifyRequest, reply: Fastify
                 type: "org"
             },
             {
-                sub: org.id,
+                sub: account.id,
                 expiresIn: "7d"
             }
         )

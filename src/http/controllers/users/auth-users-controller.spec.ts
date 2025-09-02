@@ -4,7 +4,7 @@ import { hash } from "bcryptjs";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import request from "supertest"
 
-describe("Auth Controller", () => {
+describe("Auth Users Controller", () => {
     beforeAll(async () => {
         await app.ready()
     })
@@ -13,20 +13,18 @@ describe("Auth Controller", () => {
         await app.close()
     })
 
-    it("should be able to authenticate", async () => {
-        const email = "org-1@gmail.com"
+    it("should be able to authenticate user", async () => {
+        const email = "user1@gmail.com"
         const password = "123456"
 
-        await prisma.org.create({
+        await prisma.user.create({
             data: {
                 email,
                 password_hash: await hash(password, 6),
-                address: "Rua Qualquer 1",
-                phone: "5511999999999"
             }
         })
 
-        const response = await request(app.server).post("/sessions/orgs").send({
+        const response = await request(app.server).post("/users/sessions").send({
             email,
             password
         })

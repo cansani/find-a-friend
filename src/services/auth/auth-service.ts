@@ -1,6 +1,7 @@
 import { OrgsRepository } from "@/repositories/orgs-repository"
 import { compare } from "bcryptjs"
 import { InvalidCredentialsError } from "../errors/invalid-credentials-error"
+import { UsersRepository } from "@/repositories/users-repository"
 
 interface AuthRequest {
     email: string
@@ -9,24 +10,24 @@ interface AuthRequest {
 
 export class AuthService {
     constructor(
-        private readonly orgsRepository: OrgsRepository
+        private readonly repository: OrgsRepository | UsersRepository
     ) {}
 
     async handle({ email, password }: AuthRequest) {
-        const org = await this.orgsRepository.findByEmail(email)
+        const account = await this.repository.findByEmail(email)
 
-        if (!org) {
+        if (!account) {
             throw new InvalidCredentialsError()
         }
         
-        const correctPassword = await compare(password, org.password_hash)
+        const correctPassword = await compare(password, account.password_hash)
 
         if (!correctPassword) {
             throw new InvalidCredentialsError()
         }
 
         return {
-            org
+            account
         }
     }
 }
