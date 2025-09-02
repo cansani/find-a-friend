@@ -2,7 +2,7 @@ import fastifyJwt from "@fastify/jwt";
 import fastify from "fastify";
 import { env } from "./env";
 import z, { ZodError } from "zod";
-import { appRoutes } from "./routes/appRoutes";
+import { appRoutes } from "./http/routes/appRoutes";
 import fastifyCookie from "@fastify/cookie";
 
 export const app = fastify()
