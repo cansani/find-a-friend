@@ -29,8 +29,6 @@ describe("Refresh Orgs Controller", () => {
 
         const authResponseCookies = authResponse.get("Set-Cookie")!
 
-        console.log(authResponseCookies)
-
         const refreshResponse = await request(app.server).post("/orgs/refresh").set("Cookie", authResponseCookies).send()
 
         expect(refreshResponse.statusCode).toEqual(200)
