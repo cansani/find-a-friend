@@ -36,15 +36,19 @@ export class PrismaPetsRepository implements PetsRepository {
     }
 
     async findManyByCharacteristics(characteristics: object): Promise<Pet[]> {
+        const whereClauses = Object.entries(characteristics).map(([key, value]) => ({
+            characteristics: {
+                path: [key],
+                equals: value
+            }
+        }))
+
         const pets = await prisma.pet.findMany({
             where: {
-                characteristics: {
-                    equals: characteristics
-                }
+                AND: whereClauses
             }
         })
 
         return pets
     }
-
 }

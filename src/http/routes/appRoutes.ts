@@ -6,6 +6,9 @@ import { refreshUsersController } from "../controllers/users/refresh-users-contr
 import { refreshOrgsController } from "../controllers/orgs/refresh-orgs-controller";
 import { createOrgsController } from "../controllers/orgs/create-orgs-controller";
 import { createPetController } from "../controllers/pets/create-pet-controller";
+import { getPetByIdController } from "../controllers/pets/get-pet-by-id-controller";
+import { getAvailablePetsController } from "../controllers/pets/get-available-pets-controller";
+import { searchPetsByCharacteristicsController } from "../controllers/pets/search-pets-by-characteristics";
 
 export async function appRoutes(app: FastifyInstance) {
     //Users
@@ -20,4 +23,7 @@ export async function appRoutes(app: FastifyInstance) {
 
     //Pets
     app.post("/pets", createPetController)
+    app.get("/pets/:id", getPetByIdController)
+    app.get("/pets", getAvailablePetsController)
+    app.post("/pets/search", searchPetsByCharacteristicsController)
 }
